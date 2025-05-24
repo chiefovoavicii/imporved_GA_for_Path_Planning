@@ -1,0 +1,34 @@
+src/
+├── core/                    # 核心算法与逻辑模块
+│   ├── environment/         # 环境建模相关
+│   │   ├── grid.py          # 网格环境（含网格设置、障碍物生成等）
+│   │   └── poc/  # 目标分布模型
+│   │       ├── gaussian.py  # 高斯分布实现
+│   │       ├── uniform.py   # 均匀分布实现
+│   │       └── 0-1.py   # 0-1分布实现
+│   │
+│   ├── algorithms/          # 算法模块
+│   │   │ 
+│   │   ├── genetic/    # 遗传算法（自己算法的主逻辑全放在这里，还要再写【生成路径】的算法，返回path数组，供main函数中的可视化部分调用）
+│   │   │   
+│   │   ├── greedy/     # 贪婪算法（自己算法的主逻辑全放在这里，还要再写【生成路径】的算法，返回path数组，供main函数中的可视化部分调用）
+│   │   │   
+│   │   └── rl/              # 强化学习算法   
+│   │   
+│   └── utils/               # 工具模块
+│        │
+│        └── visualize.py # 基础可视化工具（分离绘图逻辑）
+│
+├── ui/                      # 人机交互模块
+│   ├── config_parser.py      # 配置文件（YAML/JSON）
+│   └── gui/                  # 图形界面（可选PyQt/Tkinter）
+│       ├── interface.py    # 主窗口布局
+│       └── param_panel.py    # 参数配置面板
+│
+├── data/                    # 数据管理模块
+│   ├── trajectories/        # 历史路径数据存储
+│   └── models/              # 训练好的模型参数（QLearning/Q-table等）
+│
+├── __init__.py                
+│
+└── main.py                  # 程序入口

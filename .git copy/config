@@ -1,0 +1,23 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = git@github.com:he-cw/search-path-planning.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+	vscode-merge-base = origin/main
+	vscode-merge-base = origin/main
+[branch "wangjianze"]
+	remote = origin
+	merge = refs/heads/wangjianze
+	vscode-merge-base = origin/wangjianze
+[branch "test"]
+	remote = origin
+	merge = refs/heads/test
+	vscode-merge-base = origin/test
