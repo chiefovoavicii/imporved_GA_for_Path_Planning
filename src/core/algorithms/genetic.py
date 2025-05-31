@@ -32,8 +32,10 @@ class GeneticAgent:
         # 环境参数
         
         self.max_steps = config["max_steps"]
-        self.grid_size = config["grid_size"]
         
+        self.grid_x = config["grid_x"]
+        self.grid_y = config["grid_y"]
+
         # 路径编码参数
         self.chromosome_length = self.max_steps  # 染色体长度=最大步数 
         self.gene_pool = self._create_gene_pool()  # 可行基因库
@@ -96,7 +98,7 @@ class GeneticAgent:
             # 优先非回头方向（参考网页7的路径方向性启发）
             for dx, dy in [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]:  # 上下右左顺序
                 nx, ny = x+dx, y+dy
-                if 0 <= nx < self.grid_size and 0 <= ny < self.grid_size:
+                if 0 <= nx < self.grid_x and 0 <= ny < self.grid_y:
                     if self.grid_state[nx, ny] != -2:
                         valid_moves.append((int(nx), int(ny)))
             pool[(int(x), int(y))] = valid_moves
@@ -166,7 +168,7 @@ class GeneticAgent:
         
         # 计算协同覆盖率
         unique_coverage = len(set(all_positions))
-        coverage = unique_coverage / (self.grid_size**2)
+        coverage = unique_coverage / (self.grid_x*self.grid_y)
         
         # 计算路径效率
         total_length = sum(len(path) for path in individual)
@@ -176,7 +178,7 @@ class GeneticAgent:
         repeats = len(all_positions) - unique_coverage
         
         # 协同奖励（覆盖区域分布均匀性）
-        grid_counts = np.zeros((self.grid_size, self.grid_size))
+        grid_counts = np.zeros((self.grid_x, self.grid_y))
         for path in individual:
             for (x, y) in path:
                 grid_counts[x][y] += 1
@@ -313,7 +315,7 @@ def train_ga(config, env, gp, obs):
         if episode % 100 == 0:
             best = agent.get_best_path()
             unique_coords = {tuple(pos) for path in best for pos in path}
-            coverage = len(unique_coords) / (env.grid_size**2)
+            coverage = len(unique_coords) / (env.grid_x*env.grid_y)
             print(f"Gen {episode} | Coverage: {coverage:.2%} | Length: {[len(x) for x in best]}")
     
     print(f"训练耗时: {time.time() - start_time:.1f}秒")
